@@ -11,7 +11,8 @@
             echo "Chamou validador-cpf.php\n";
 
             // $requestCPF = $_POST["cpf-validator-field-cpf-to-validate"]; // Vem como string
-            $requestCPF = "384.294.578-79"; // DEV-TESTE
+            // $requestCPF = "384.294.578-79"; // DEV-TESTE
+            $requestCPF = "384.294.578-63"; // DEV-TESTE
             // $requestCPF = "22222222221"; // DEV-TESTE
 
             // planejamento:
@@ -105,18 +106,27 @@
                 // remontando CPF
                 $refCPF = implode("", $arrayCPFIncomplete);
 
-                devEchoTested($d=true, $refCPF);
+                // devEchoTested($d=true, $refCPF);
+
                 // comparando
-                if ($refCPF == $postedCPFClean) {
-                    echo "CPF válido.\n";
-                    devEchoTested($d=false, '$refCPF', $refCPF, '$postedCPF', $postedCPF);
-                } else {
-                    echo "CPF inválido\n";
-                    devEchoTested($d=false, '$refCPF', $refCPF, '$postedCPF', $postedCPF);
-                };
+                return ($refCPF == $postedCPFClean) ? true : false;
+
+                // if ($refCPF == $postedCPFClean) {
+                //     return true;
+                //     // devEchoTested($d=false, '$refCPF', $refCPF, '$postedCPF', $postedCPF);
+                // } else {
+                //     return false;
+                //     // devEchoTested($d=false, '$refCPF', $refCPF, '$postedCPF', $postedCPF);
+                // };
 
             };
-            validateCPF($requestCPF);
+            $CPFIsValid = validateCPF($requestCPF);
+            
+            if ($CPFIsValid) {
+                echo "CPF válido.\n";
+            } else {
+                echo "CPF inválido\n";
+            };
 
         ?>
 
