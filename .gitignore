@@ -1,2 +1,5 @@
 # Files
 *.sh
+
+# Folders
+apache2-safe
