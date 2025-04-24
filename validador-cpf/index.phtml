@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,5 +7,25 @@
 </head>
 <body>
     <h1>Validador de CPF</h1>
+    <hr>
+
+    <div>
+        <p>Validador</p>
+        <form id="cpf-validator" name="cpf-validator" action="validador-cpf.php" method="POST">
+            <label id="cpf-validator-label-cpf-to-validate" for="cpf-validator-field-cpf-to-validate" form="cpf-validator">Insira CPF</label><br>
+            <input id="cpf-validator-field-cpf-to-validate" name="cpf-to-validate" type="text"><br>
+            <input id="cpf-validator-submit" form="cpf-validator" type="submit" value="Validar"><br>
+        </form>
+    </div>
+    <hr>
+    
+    <div>
+        <p>Criador</p>
+        <form id="cpf-creator" name="cpf-creator" action="criador-cpf.php" method="POST">
+            <input id="cpf-creator-submit" form="cpf-creator" type="submit" value="Criar CPF"><br>
+            <label id="cpf-creator-label-created-cpf" for="cpf-creator-field-created-cpf" form="cpf-creator">CPF criado</label><br>
+            <input id="cpf-creator-field-created-cpf" type="text" name="cpf-creator-field-created-cpf" form="cpf-creator"><br>
+        </form>
+    </div>
 </body>
 </html>
