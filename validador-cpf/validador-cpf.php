@@ -10,55 +10,34 @@
         <?php
             echo "Chamou validador-cpf.php\n";
 
-            // $requestCPF = $_POST["cpf-validator-field-cpf-to-validate"]; // Vem como string
-            $requestCPF = "367.522.200-42"; // DEV-TESTE
+            $requestCPF = $_POST["cpf-validator-field-cpf-to-validate"]; // Vem como string
+            // $requestCPF = "367.522.200-42"; // DEV-TESTE
+            // $requestCPF = "367.522.200-1"; // DEV-TESTE
+            // $requestCPF = "367.522.200-1a"; // DEV-TESTE
             // $requestCPF = "367.522.264-42"; // DEV-TESTE
+            // $requestCPF = "22222222222"; // DEV-TESTE
             // $requestCPF = "22222222221"; // DEV-TESTE
-
-            // planejamento:
-            // primeiro limpar o CPF de símbolos estranhos
-            // tamanho de 11
-            // se todos os dígitos são iguais
-            // aplicação de fórmula
-            // comparação com input
-
-            function devEchoTested($d=false, ...$args) {
-                // $i = 0;
-                // $len = count($args);
-                // for ($i = 0; $i < $len; $i += 1) {
-                //     echo ""
-                // }
-                foreach($args as $x) {
-                    if ($d) {
-                        var_dump($x);
-                    } else {
-                        echo "$x\n";
-                    };
-                }
-            }
-
-            function devEchoArrayElem($d=false, $pArray) {
-                foreach($pArray as $elem) {
-                    if ($d) {
-                        var_dump($elem);
-                    } else {
-                        echo "$elem\n";
-                    };
-                }
-            }
 
             function validateCPF($postedCPF) {
                 $postedCPFClean = preg_replace("/\D/", "", $postedCPF);
+                
+                // verif de tamanho
+                if (strlen($postedCPFClean) != 11) return false;
+
+                // verif dígitso iguais
+                $postedCPFCleanArray = str_split($postedCPFClean);
+                $arrayCPFSingleNumber = array_unique($postedCPFCleanArray);
+                if (count($arrayCPFSingleNumber) == 1) {
+                    return false;
+                }
+
                 $CPFIncomplete = substr($postedCPFClean, 0, 9);
                 $arrayCPFIncomplete = str_split($CPFIncomplete);
 
-                // verif de tamanho
-
-                
                 $arrayCPFIncomplete = array_map(function ($x) {
                     return (int)$x;
                 }, $arrayCPFIncomplete);
-
+                
                 $totalFirstPart = 0;
                 
                 // calculando primeiro dígito
@@ -70,8 +49,6 @@
                 
                 $divRestFirstDigit = ($totalFirstPart % 11);
                 $diffFirstDigit = 11 - $divRestFirstDigit;
-
-                // devEchoTested($d=false, "divRestFirstDigit", $divRestFirstDigit, "diffFirstDigit", $diffFirstDigit);
                 
                 $firstDigit = 0;
                 if ($diffFirstDigit >= 10) {
@@ -104,26 +81,19 @@
                 // remontando CPF
                 $refCPF = implode("", $arrayCPFIncomplete);
 
-                // devEchoTested($d=true, $refCPF);
+                // var_dump($refCPF);
+                // var_dump($postedCPF);
 
                 // comparando
                 return ($refCPF == $postedCPFClean) ? true : false;
-
-                // if ($refCPF == $postedCPFClean) {
-                //     return true;
-                //     // devEchoTested($d=false, '$refCPF', $refCPF, '$postedCPF', $postedCPF);
-                // } else {
-                //     return false;
-                //     // devEchoTested($d=false, '$refCPF', $refCPF, '$postedCPF', $postedCPF);
-                // };
-
             };
+
             $CPFIsValid = validateCPF($requestCPF);
             
             if ($CPFIsValid) {
                 echo "CPF válido.\n";
             } else {
-                echo "CPF inválido\n";
+                echo "CPF inválido.\n";
             };
 
         ?>
