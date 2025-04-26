@@ -38,11 +38,23 @@
                     return (int)$x;
                 }, $arrayCPFIncomplete);
                 
+                $arrayLastDigits = calculateCPFLastDigits($arrayCPFIncomplete);
+                $arrayCPFComplete = array_merge($arrayCPFIncomplete, $arrayLastDigits);
+
+                // remontando CPF
+                $refCPF = implode("", $arrayCPFComplete);
+
+                // comparando
+                return ($refCPF == $postedCPFClean) ? true : false;
+            };
+
+            function calculateCPFLastDigits($arrayIncompleteCPF) {
+                $arrayLastDigits = [];
                 $totalFirstPart = 0;
                 
                 // calculando primeiro dígito
                 $paramFirstDigit = 10;
-                foreach ($arrayCPFIncomplete as $num) {
+                foreach ($arrayIncompleteCPF as $num) {
                     $totalFirstPart += ($num * $paramFirstDigit);
                     $paramFirstDigit -= 1;
                 }
@@ -56,13 +68,14 @@
                 } else {
                     $firstDigit = $diffFirstDigit;
                 }
-                array_push($arrayCPFIncomplete, $firstDigit);
+                array_push($arrayLastDigits, $firstDigit);
+                array_push($arrayIncompleteCPF, $firstDigit);
 
                 // calculadndo segundo dígito
                 $totalSecondPart = 0;
                 $paramSecondDigit = 11;
                 
-                foreach ($arrayCPFIncomplete as $num) {
+                foreach ($arrayIncompleteCPF as $num) {
                     $totalSecondPart += ($num * $paramSecondDigit);
                     $paramSecondDigit -= 1;
                 }
@@ -76,17 +89,10 @@
                 } else {
                     $secondDigit = $diffSecondDigit;
                 }
-                array_push($arrayCPFIncomplete, $secondDigit);
-
-                // remontando CPF
-                $refCPF = implode("", $arrayCPFIncomplete);
-
-                // var_dump($refCPF);
-                // var_dump($postedCPF);
-
-                // comparando
-                return ($refCPF == $postedCPFClean) ? true : false;
-            };
+                array_push($arrayLastDigits, $secondDigit);
+                var_dump($arrayLastDigits);
+                return $arrayLastDigits;
+            }
 
             $CPFIsValid = validateCPF($requestCPF);
             
