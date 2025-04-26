@@ -11,8 +11,8 @@
             echo "Chamou validador-cpf.php\n";
 
             // $requestCPF = $_POST["cpf-validator-field-cpf-to-validate"]; // Vem como string
-            // $requestCPF = "384.294.578-79"; // DEV-TESTE
-            $requestCPF = "384.294.578-63"; // DEV-TESTE
+            $requestCPF = "367.522.200-42"; // DEV-TESTE
+            // $requestCPF = "367.522.264-42"; // DEV-TESTE
             // $requestCPF = "22222222221"; // DEV-TESTE
 
             // planejamento:
@@ -52,10 +52,8 @@
                 $CPFIncomplete = substr($postedCPFClean, 0, 9);
                 $arrayCPFIncomplete = str_split($CPFIncomplete);
 
-                // devEchoTested($d=false, '$postedCPF', $postedCPF);
-                // devEchoTested($d=false, '$postedCPFClean', $postedCPFClean);
-                // devEchoTested($d=false, '$CPFIncomplete', $CPFIncomplete);
-                // devEchoArrayElem($d=false, $arrayCPFIncomplete);
+                // verif de tamanho
+
                 
                 $arrayCPFIncomplete = array_map(function ($x) {
                     return (int)$x;
